@@ -1,0 +1,33 @@
+services:
+  minio:
+    image: minio/minio
+    container_name: facial_storage
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data #dirección X
+
+  db_reconocimiento:
+    image: pgvector/pgvector:pg16
+    container_name: postgres_vector_db
+    environment:
+      #Estos credenciales se pueden cambiar... 
+      #si quieren correr la prueba en el index: creen otro archivo .env en la misma carpeta que el index con estas variables
+      #DATABASE_URL="postgresql://admin:flavioweko@localhost:5432/sistemaDeDB"
+      POSTGRES_USER: ${DATABASE_USER} # admin
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD} # flavioweko
+      POSTGRES_DB: sistemaDeDB
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data #dirección X
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+#Esto sirve para que una vez cerrado el contenedor no olvide todos los datos al volver a abrirlo, los va a guardar localmente en las direcciones X
+volumes:
+  minio_data:
+  pgdata:
