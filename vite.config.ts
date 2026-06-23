@@ -5,6 +5,10 @@ export default defineConfig({
   plugins: [react()],
   root: 'frontend',
   envDir: '../',
+  build: {
+    outDir: '../dist',
+    emptyOutDir: true,
+  },
   server: {
     proxy: {
       // Redirige todas las llamadas /api al backend
