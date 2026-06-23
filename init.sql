@@ -109,6 +109,11 @@ INSERT INTO users (id, name, role_id, email) VALUES
 
 UPDATE users SET passw = '$2b$10$wA/n.Jp7PjR5J.g7bYQ.uO1c.YfG.xQ3Q.z.qX.q.q.q.q.q.q.q.q'; --lo ocupare para probar las funciones de comparación
 
+-- Usuario "Visitante" de ejemplo (rol Visita = 5), con password real generado con Bun.password.hash
+-- Login: name = 'Visitante', password = 'visitante123'
+INSERT INTO users (name, role_id, email, passw) VALUES
+('Visitante', 5, 'visitante@ejemplo.com', '$argon2id$v=19$m=65536,t=2,p=1$iNy8Q8GldG0BDxGrH3N2BYItcc58keoGW2RlUnbGiT8$MKZa4iGwSlMCl8ufq3+ClkuLUZ5FB/Q+poP83Ov9E64');
+
 INSERT INTO role_zone_permissions (role_id, zone_id) VALUES 
 -- Administrador (1): Acceso a todo (1 al 10)
 (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6), (1, 7), (1, 8), (1, 9), (1, 10),
