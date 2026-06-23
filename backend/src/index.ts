@@ -4,8 +4,23 @@ import { saveFaceSnapshot, findOrCreateGoogleUser, findNearestFaceMatch, createA
 import { requestOtp, verifyOtp } from "./otp/otp.service"
 import { emitirYEnviarQR } from "./qr/qr.services";
 import { generateToken, getAuthFromRequest, isAdmin } from "./auth/jwt.utils";
+import { join } from "path"
 
 await initStorage()
+
+// Carpeta con el build de Vite (frontend), generada en la raíz del proyecto por "vite build"
+const DIST_DIR = join(import.meta.dir, "../../dist")
+
+// Sirve los archivos estáticos del frontend; si la ruta no corresponde a un archivo real,
+// devuelve index.html para que el router de React (SPA) maneje la navegación del lado del cliente
+async function serveFrontend(pathname: string): Promise<Response> {
+    const filePath = pathname === "/" ? "index.html" : pathname.replace(/^\/+/, "")
+    const file = Bun.file(join(DIST_DIR, filePath))
+    if (await file.exists()) {
+        return new Response(file)
+    }
+    return new Response(Bun.file(join(DIST_DIR, "index.html")))
+}
 
 // Cabeceras CORS comunes para permitir que el frontend (en otro origen) llame a esta API
 function corsHeaders() {
@@ -568,6 +583,11 @@ Bun.serve({
                     headers: corsHeaders(),
                 });
             }
+        }
+
+        // Cualquier ruta que no sea /api/* se sirve desde el build del frontend (con fallback a index.html para el router SPA)
+        if (req.method === "GET" && !url.pathname.startsWith("/api/")) {
+            return serveFrontend(url.pathname)
         }
 
         return new Response("Not found", { status: 404, headers: corsHeaders() })

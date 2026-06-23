@@ -1,4 +1,6 @@
 {
+  "name": "reconocimiento-facial-backend",
+  "private": true,
   "dependencies": {
     "jsonwebtoken": "^9.0.3",
     "minio": "^8.0.7",

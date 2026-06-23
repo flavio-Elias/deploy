@@ -3,10 +3,14 @@
   "private": true,
   "version": "0.0.1",
   "type": "module",
+  "workspaces": [
+    "backend"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -p frontend && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "bun backend/src/index.ts"
   },
   "dependencies": {
     "@react-oauth/google": "^0.12.1",
