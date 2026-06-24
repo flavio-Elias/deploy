@@ -20,7 +20,7 @@ export default function ReportsPage() {
     const [dateData, setDateData] = useState(null);
     const [loadingDate, setLoadingDate] = useState(false);
     useEffect(() => {
-        fetch('http://localhost:3000/api/users/emails', { headers: authHeaders() })
+        fetch('/api/users/emails', { headers: authHeaders() })
             .then(res => res.json())
             .then(data => setEmailList(Array.isArray(data) ? data : []))
             .catch(() => { });
@@ -32,7 +32,7 @@ export default function ReportsPage() {
             return;
         setLoadingUser(true);
         try {
-            const res = await fetch(`http://localhost:3000/api/reports/user?email=${encodeURIComponent(searchEmail)}`, { headers: authHeaders() });
+            const res = await fetch(`/api/reports/user?email=${encodeURIComponent(searchEmail)}`, { headers: authHeaders() });
             const data = await res.json();
             if (!res.ok) {
                 alert(data.error || 'Error al generar el reporte');
@@ -55,7 +55,7 @@ export default function ReportsPage() {
             return;
         setLoadingDate(true);
         try {
-            const res = await fetch(`http://localhost:3000/api/reports/date?date=${selectedDate}`, { headers: authHeaders() });
+            const res = await fetch(`/api/reports/date?date=${selectedDate}`, { headers: authHeaders() });
             if (!res.ok)
                 throw new Error();
             const data = await res.json();

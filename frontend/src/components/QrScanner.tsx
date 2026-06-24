@@ -39,7 +39,7 @@ export default function QrScanner({ zoneId = 1, logType = 'Entrada',onSuccess}: 
         }
 
         try {       // Llamada al backend para validar el token
-            const res = await fetch('http://localhost:3000/api/validate-access', {
+            const res = await fetch('/api/validate-access', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ token, zoneId, logType }),

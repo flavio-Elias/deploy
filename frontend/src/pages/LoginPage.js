@@ -46,7 +46,7 @@ export default function LoginPage() {
             return;
         }
         try {
-            const res = await fetch('http://localhost:3000/api/login', {
+            const res = await fetch('/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name: username, password }),
@@ -76,7 +76,7 @@ export default function LoginPage() {
         setOtpLoading(true);
         setOtpMessage('');
         try {
-            const res = await fetch('http://localhost:3000/api/auth/otp/request', {
+            const res = await fetch('/api/auth/otp/request', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: otpEmail }),
@@ -106,7 +106,7 @@ export default function LoginPage() {
         setOtpLoading(true);
         setOtpMessage('');
         try {
-            const res = await fetch('http://localhost:3000/api/auth/otp/verify', {
+            const res = await fetch('/api/auth/otp/verify', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: otpEmail, code: otpCode }),
@@ -158,7 +158,7 @@ export default function LoginPage() {
             return;
         }
         try {
-            const res = await fetch('http://localhost:3000/api/register', {
+            const res = await fetch('/api/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -207,7 +207,7 @@ export default function LoginPage() {
                                         }, children: t('login.changeEmail') })] })), otpMessage && (_jsx("p", { style: otpMessage.includes('enviado') || otpMessage.includes('sent') ? successStyle : messageStyle, children: otpMessage })), _jsx("button", { style: backButtonStyle, onClick: goBack, children: t('login.back') })] })), activePanel === 'register' && (_jsxs(_Fragment, { children: [_jsx("h2", { style: titleStyle, children: t('login.register') }), _jsxs("form", { onSubmit: handleRegister, style: formStyle, children: [_jsx("input", { style: inputStyle, type: "text", placeholder: t('login.placeholder.username'), value: regUsername, maxLength: NAME_MAX_LENGTH, onChange: (e) => setRegUsername(e.target.value) }), _jsx("input", { style: inputStyle, type: "email", placeholder: t('login.placeholder.emailGeneric'), value: regEmail, maxLength: EMAIL_MAX_LENGTH, onChange: (e) => setRegEmail(e.target.value) }), _jsx("input", { style: inputStyle, type: "password", placeholder: t('login.placeholder.password'), value: regPassword, maxLength: PASSWORD_MAX_LENGTH, onChange: (e) => setRegPassword(e.target.value) }), _jsx("input", { style: inputStyle, type: "password", placeholder: t('login.placeholder.repeatPassword'), value: regPassword2, maxLength: PASSWORD_MAX_LENGTH, onChange: (e) => setRegPassword2(e.target.value) }), _jsx("button", { type: "submit", style: primaryButtonStyle, children: t('login.register') })] }), registerMessage && _jsx("p", { style: messageStyle, children: registerMessage }), _jsx("button", { style: backButtonStyle, onClick: goBack, children: t('login.back') })] })), activePanel === 'face-capture' && (_jsxs(_Fragment, { children: [_jsx("h2", { style: titleStyle, children: t('login.registerFace') }), _jsxs("p", { style: subtitleStyle, children: [t('login.lookAtCamera'), faceSnapshots > 0 && ` ${faceSnapshots} ${faceSnapshots > 1 ? t('login.capturesSavedPlural') : t('login.capturesSaved')}.`] }), _jsx("div", { style: { width: '100%', height: '260px', borderRadius: '12px', overflow: 'hidden', background: '#000' }, children: _jsx(FaceCamera, { userId: newUserId, onSnapshot: () => setFaceSnapshots(n => n + 1) }) }), faceSnapshots >= 3 && (_jsx("p", { style: successStyle, children: t('login.faceRegisteredSuccessfully') })), _jsx("button", { style: { ...primaryButtonStyle, opacity: faceSnapshots === 0 ? 0.5 : 1 }, disabled: faceSnapshots === 0, onClick: () => {
                                     // En lugar de volver a 'choose' o ir a 'home', pasamos a elegir el rol
                                     setActivePanel('role-selection');
-                                    fetch('http://localhost:3000/api/roles').then(r => r.json()).then(setRoles);
+                                    fetch('/api/roles').then(r => r.json()).then(setRoles);
                                 }, children: faceSnapshots === 0 ? t('login.waitingCapture') : t('login.finishRegistration') }), _jsx("button", { style: backButtonStyle, onClick: () => {
                                     setNewUserId(null);
                                     setActivePanel('choose');
@@ -218,7 +218,7 @@ export default function LoginPage() {
                                         return;
                                     setLoadingRole(true);
                                     try {
-                                        const res = await fetch('http://localhost:3000/api/users/role', {
+                                        const res = await fetch('/api/users/role', {
                                             method: 'POST',
                                             headers: { 'Content-Type': 'application/json' },
                                             body: JSON.stringify({ userId: Number(newUserId), roleId: selectedRoleId })

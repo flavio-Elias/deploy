@@ -21,7 +21,7 @@ export default function HistoryPage() {
     const [error, setError] = useState('')
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/logs', { headers: authHeaders() })
+        fetch('/api/logs', { headers: authHeaders() })
             .then(res => {
                 if (!res.ok) throw new Error(t('accessLogs.errorLoading'))
                 return res.json()

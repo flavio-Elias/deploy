@@ -12,16 +12,16 @@ export default function AdminUsersPage() {
     const [selectedUser, setSelectedUser] = useState(null);
     const [selectedZoneBan, setSelectedZoneBan] = useState('');
     useEffect(() => {
-        fetch('http://localhost:3000/api/admin/users', { headers: authHeaders() })
+        fetch('/api/admin/users', { headers: authHeaders() })
             .then(r => r.ok ? r.json() : [])
             .then(setUsers);
-        fetch('http://localhost:3000/api/zones').then(r => r.json()).then(setZones);
+        fetch('/api/zones').then(r => r.json()).then(setZones);
     }, []);
     // Pide confirmación y ejecuta una acción administrativa (banear, borrar biometría, activar/desactivar)
     const handleAction = async (endpoint, body) => {
         if (!confirm('¿Estás seguro de realizar esta acción?'))
             return;
-        const res = await fetch(`http://localhost:3000/api/admin/${endpoint}`, {
+        const res = await fetch(`/api/admin/${endpoint}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', ...authHeaders() },
             body: JSON.stringify(body)
@@ -33,7 +33,7 @@ export default function AdminUsersPage() {
         alert('Acción completada con éxito');
         if (endpoint === 'toggle-user') {
             // Recargar usuarios para actualizar el estado is_active
-            fetch('http://localhost:3000/api/admin/users', { headers: authHeaders() })
+            fetch('/api/admin/users', { headers: authHeaders() })
                 .then(r => r.ok ? r.json() : [])
                 .then(setUsers);
         }

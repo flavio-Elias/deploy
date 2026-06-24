@@ -45,7 +45,7 @@ function forbidden() {
 
 
 Bun.serve({
-    port: 3000,
+    port: Number(Bun.env.PORT || 3000),
     async fetch(req) {
         const url = new URL(req.url)
 

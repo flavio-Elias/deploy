@@ -33,7 +33,7 @@ export default function HomePage() {
       setIsMaster(JSON.parse(storedUser).master || false)
     }
 
-    fetch('http://localhost:3000/api/zones')
+    fetch('/api/zones')
       .then(res => {
         if (!res.ok) throw new Error(t('home.errorLoadingZones'))
         return res.json()
@@ -61,7 +61,7 @@ export default function HomePage() {
     setQrLoading(true)
     setQrMessage('')
     try {
-      const res = await fetch('http://localhost:3000/api/qr/request', {
+      const res = await fetch('/api/qr/request', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: qrEmail, zoneId: selectedZone?.id })
@@ -87,7 +87,7 @@ export default function HomePage() {
     setQrLoading(true)
     setQrMessage('')
     try {
-      const res = await fetch('http://localhost:3000/api/qr/request', {
+      const res = await fetch('/api/qr/request', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         // IMPORTANTE: Aquí mandamos logType: 'Salida'

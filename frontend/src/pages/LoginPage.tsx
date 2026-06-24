@@ -66,7 +66,7 @@ export default function LoginPage() {
         }
 
         try {
-            const res = await fetch('http://localhost:3000/api/login', {
+            const res = await fetch('/api/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name: username, password }),
@@ -103,7 +103,7 @@ export default function LoginPage() {
         setOtpMessage('')
 
         try {
-            const res = await fetch('http://localhost:3000/api/auth/otp/request', {
+            const res = await fetch('/api/auth/otp/request', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: otpEmail }),
@@ -138,7 +138,7 @@ export default function LoginPage() {
         setOtpMessage('')
 
         try {
-            const res = await fetch('http://localhost:3000/api/auth/otp/verify', {
+            const res = await fetch('/api/auth/otp/verify', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: otpEmail, code: otpCode }),
@@ -199,7 +199,7 @@ export default function LoginPage() {
         }
 
         try {
-            const res = await fetch('http://localhost:3000/api/register', {
+            const res = await fetch('/api/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -484,7 +484,7 @@ export default function LoginPage() {
                                 onClick={() => {
                                     // En lugar de volver a 'choose' o ir a 'home', pasamos a elegir el rol
                                     setActivePanel('role-selection');
-                                    fetch('http://localhost:3000/api/roles').then(r => r.json()).then(setRoles);
+                                    fetch('/api/roles').then(r => r.json()).then(setRoles);
                                 }}
                             >
                                 {faceSnapshots === 0 ? t('login.waitingCapture') : t('login.finishRegistration')}
@@ -515,7 +515,7 @@ export default function LoginPage() {
                             
                             setLoadingRole(true);
                             try {
-                                const res = await fetch('http://localhost:3000/api/users/role', {
+                                const res = await fetch('/api/users/role', {
                                     method: 'POST',
                                     headers: { 'Content-Type': 'application/json' },
                                     body: JSON.stringify({ userId: Number(newUserId), roleId: selectedRoleId })
