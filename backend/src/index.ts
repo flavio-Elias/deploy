@@ -46,6 +46,7 @@ function forbidden() {
 
 Bun.serve({
     port: Number(Bun.env.PORT || 3000),
+    hostname: "0.0.0.0",
     async fetch(req) {
         const url = new URL(req.url)
 
@@ -594,4 +595,4 @@ Bun.serve({
     },
 })
 
-console.log("Server running on http://localhost:3000")
+console.log(`Server running on port ${Bun.env.PORT || 3000}`)
